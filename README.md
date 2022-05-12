@@ -5,11 +5,11 @@ monitor the power consumption of the users, generate the monthly bills and autom
 users, and accept the online payments from the users. 
 
 
-#Aim
+# Aim
 
 The aim of this project is to develop a rich front-end for the online platform.
 
-#Objectives
+# Objectives
 
 Select the RESTful web service you developed for the group assignment.
 Develop a rich web-based application using the Form and Grid pattern to perform CRUD

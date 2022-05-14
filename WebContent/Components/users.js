@@ -37,9 +37,10 @@ $(document).on("click", "#btnSave", function(event)
  		}); 
 });
 
-
 function onUserSaveComplete(response, status)
 { 
+	$("#alertSuccess").text(response); 
+ 	$("#alertSuccess").show(); 
 	if (status == "success") 
  	{ 
 			 var resultSet = JSON.parse(response); 
@@ -67,12 +68,15 @@ function onUserSaveComplete(response, status)
 // UPDATE==========================================
 $(document).on("click", ".btnUpdate", function(event)
 		{ 
-		 $("#hidUserIDSave").val($(this).data("userid")); 
+		 $("#hidUserIDSave").val($(this).data("userid"));
+		 $("#accountNo").val($(this).closest("tr").find('td:eq(0)').text()); 
 		 $("#name").val($(this).closest("tr").find('td:eq(1)').text()); 
 		 $("#address").val($(this).closest("tr").find('td:eq(2)').text()); 
-		 $("#nic").val($(this).closest("tr").find('td:eq(3)').text()); 
+		 $("#NIC").val($(this).closest("tr").find('td:eq(3)').text()); 
 		 $("#email").val($(this).closest("tr").find('td:eq(4)').text()); 
 		 $("#phone").val($(this).closest("tr").find('td:eq(5)').text());  
+		 $("#password").val($(this).closest("tr").find('td:eq(6)').text());
+		 $("#userrole").val($(this).closest("tr").find('td:eq(7)').text());
 		});
 		
 $(document).on("click", ".btnRemove", function(event)
@@ -132,7 +136,7 @@ function validateUserForm(){
 	}
 	
 	// UserNIC-------------------------------
-	if ($("#nic").val().trim() == ""){
+	if ($("#NIC").val().trim() == ""){
 		return "Insert NIC.";
 	}
 	
@@ -152,7 +156,7 @@ function validateUserForm(){
 	}
 	
 	// UserRole-------------------------------
-	if ($("#userrole").val().trim() == ""){
+	if ($("#user_role").val().trim() == ""){
 		return "Select User Role";
 	}
 	
@@ -163,18 +167,11 @@ function validateUserForm(){
     {
         return "You Have Entered An Invalid E-mail Address";
     }
-    
-    
+        
     var phone = $("#phone").val().trim();
     var phoneFilter = /^(?:7|0|(?:\\+94))[0-9]{9,10}$/;
    	if (phoneFilter.test(phone) === false) {
         return "You Have Entered An Invalid Contact Number";
-    }
-    
-    var firstName =  $("#name").val().trim();
-    var filterFirst = /^[a-zA-Z]+$/i;
-    if (filterFirst.test(firstName) === false) {
-        return "You Have Entered An Invalid First Name";
     }
 
 	return true;

@@ -18,7 +18,6 @@ public class UsersAPI extends HttpServlet {
        
     public UsersAPI() {
         super();
-
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -26,7 +25,6 @@ public class UsersAPI extends HttpServlet {
 
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -37,23 +35,46 @@ public class UsersAPI extends HttpServlet {
 			   							request.getParameter("email"),
 			   							request.getParameter("phone"),
 			   							request.getParameter("password"),
-			   							request.getParameter("user_role")); 
+			   							request.getParameter("user_role"));
 		
 		response.getWriter().write(output);
 
+	}
+	
+	// Convert request parameters to a Map
+	private static Map getParasMap(HttpServletRequest request){ 
+	 Map<String, String> map = new HashMap<String, String>(); 
+	try{ 
+	 Scanner scanner = new Scanner(request.getInputStream(),"UTF-8"); 
+	 String queryString = scanner.hasNext() ? 
+	 scanner.useDelimiter("\\A").next() : ""; 
+	 scanner.close(); 
+	 String[] params = queryString.split("&"); 
+	 
+	 for (String param : params){
+		 String[] p = param.split("=");
+		 map.put(p[0], p[1]); } 
+	 
+	 }catch (Exception e){ 
+			
+	 }
+		return map; 
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		Map paras = getParasMap(request); 
 		
-		String output = user.updateUser(paras.get("hidUserIDSave").toString(), 
-									   paras.get("name").toString(), 
-									   paras.get("address").toString(), 
-									   paras.get("NIC").toString(), 
-									   paras.get("email").toString(),
-									   paras.get("phone").toString()); 
-		
+		String output = user.updateUser(paras.get("hidUserIDSave").toString(),
+										paras.get("accountNo").toString(), 
+									    paras.get("name").toString(), 
+									    paras.get("address").toString(), 
+									    paras.get("NIC").toString(), 
+									    paras.get("email").toString(),
+									    paras.get("phone").toString(),
+										paras.get("password").toString(),
+										paras.get("user_role").toString());
+	
 		response.getWriter().write(output); 
 	}
 
@@ -66,27 +87,4 @@ public class UsersAPI extends HttpServlet {
 		
 		response.getWriter().write(output);
 	}
-
-	
-	// Convert request parameters to a Map
-		private static Map getParasMap(HttpServletRequest request){ 
-		 Map<String, String> map = new HashMap<String, String>(); 
-		try{ 
-		 Scanner scanner = new Scanner(request.getInputStream(),"UTF-8"); 
-		 String queryString = scanner.hasNext() ? 
-		 scanner.useDelimiter("\\A").next() : ""; 
-		 scanner.close(); 
-		 String[] params = queryString.split("&"); 
-		 
-		 for (String param : params){
-			 String[] p = param.split("=");
-			 map.put(p[0], p[1]); } 
-		 
-		 }catch (Exception e){ 
-				
-		 }
-		
-			return map; 
-			
-		}
 }	

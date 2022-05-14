@@ -22,19 +22,14 @@ public class User {
 	public String insertUser(String accountNo, String name, String address, String NIC,
 			String email, String phone, String password, String user_role) {
 		
+		System.out.println(NIC);
 		String output = "";
 
 		try {
 			Connection con = DBConnection.connect();
-			UserValidation validations = new UserValidation();
 			
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
-			}
-
-			//Validating data
-			if(validations.registrationValidation(accountNo, name, address, NIC, email, phone, password) == false){
-				return "Please check the input values";
 			}
 
 			// create a prepared statement
@@ -50,6 +45,7 @@ public class User {
 			preparedStmt.setString(6, phone);
 			preparedStmt.setString(7, password); 
 			preparedStmt.setString(8, user_role);
+		
 			
 			// execute the statement
 			preparedStmt.execute();
@@ -80,21 +76,20 @@ public class User {
 					+"<th>Name</th><th>Address</th><th>NIC</th>"
 					+ "<th>Email</th>"
 					+ "<th>Phone</th>"
-					+ "<th>Password</th>"
 					+ "<th>User Role</th>";
-			String query = "select * from user WHERE user_role='Customer'";
+			String query = "select * from user";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
 			// iterate through the rows in the result set
 			while (rs.next()){
+				String userID = Integer.toString(rs.getInt("userID"));
 				String accountNo = rs.getString("accountNo");
 				String name = rs.getString("name");
 				String address = rs.getString("address");
 				String NIC = rs.getString("NIC");
 				String email = rs.getString("email");
 				String phone = rs.getString("phone");
-				String password = rs.getString("password");
 				String user_role = rs.getString("user_role");
 
 				// Add a row into the html table
@@ -104,8 +99,14 @@ public class User {
 				output += "<td>" + NIC + "</td>";
 				output += "<td>" + email + "</td>"; 
 				output += "<td>" + phone + "</td>";
-				output += "<td>" + password + "</td>";
 				output += "<td>" + user_role + "</td>";
+				
+				// buttons
+				output +=  "<td><input name='btnUpdate' type='button' value='Update' ";
+				output += "class='btnUpdate btn btn-warning' data-userid='" + userID + "'></td>";
+				output += "<td><input name='btnRemove' type='button' value='Remove' ";
+				output += "class='btnRemove btn btn-danger' data-userid='" + userID + "'></td>";
+				output += "</tr>"; 		  
 			}
 
 			con.close();
@@ -122,165 +123,53 @@ public class User {
 		return output;
 	}
 
-	//Fetch User Details
-	public String getUserDetails(String userID){
-		String output = "";
-
-		try{
-			Connection con = DBConnection.connect();
-			if (con == null){
-				return "Error while connecting to the database for reading";
-			}
-
-			// Prepare the html table to be displayed
-			output = "<table border='1'><tr><th>Account No</th>"
-					+"<th>Name</th><th>NIC</th>"
-					+ "<th>Email</th>"
-					+ "<th>Phone</th>"
-					+ "<th>Password</th>"
-					+ "<th>Role</th>";
-			String query = "select * from user where userId='"+userID+"'";
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-
-			// iterate through the rows in the result set
-			while (rs.next()){ 
-				String userId = Integer.toString(rs.getInt("userId"));
-				String accountNo = rs.getString("accountNo");
-				String name = rs.getString("name");
-				String NIC = rs.getString("NIC");
-				String email = rs.getString("email");
-				String phone = rs.getString("phone");
-				String password = rs.getString("password");
-				String user_role = rs.getString("user_role");
-				// Add a row into the html table
-				output += "<tr><td>" + accountNo + "</td>";
-				output += "<td>" + name + "</td>";
-				output += "<td>" + NIC + "</td>";
-				output += "<td>" + email + "</td>"; 
-				output += "<td>" + phone + "</td>";
-				output += "<td>" + password + "</td>";
-				output += "<td>" + user_role + "</td>";
-				// buttons
-				output += "<input name='itemID' type='hidden' "
-						+ " value='" + userId + "'>"
-						+ "</form></td></tr>";
-			}
-
-			con.close();
-			// Complete the html table
-			output += "</table>";
-
-		}
-
-		catch (Exception e){
-			output = "Error while reading the user details";
-			System.err.println(e.getMessage());
-		}
-
-		return output;
-	}
 
 	//Update Customer
-	public String updateUser(String accountNo, String name, String address, String NIC, String email,
-			String phone){
-		
-		UserBean userBean = new UserBean();
+	public String updateUser(String userId, String accountNo, String name, String address, String NIC, 
+			String email, String phone, String password, String user_role){
 		
 	    String output = "";
 
 	    try{
 			Connection con = DBConnection.connect();
-			UserValidation validations = new UserValidation();
 			
 		   if (con == null){
 			   return "Error while connecting to the database for updating"; 
 		   }
 		   // create a prepared statement
-		   String query = "UPDATE user SET accountNo=?,name=?,address=?,NIC=?,email=?,phone=? WHERE userId=?";
+		   String query = "UPDATE user SET accountNo=?,name=?,address=?,NIC=?,email=?,phone=?, password=?, user_role=? WHERE userId=?";
 		   PreparedStatement preparedStmt = con.prepareStatement(query);
-		   
-		   
-		   //Validating data
-			if(validations.userUpdateValidation(userBean.getAccountNo(),userBean.getName(), userBean.getAddress(), userBean.getNIC(), userBean.getEmail(), userBean.getPhone()) == false){
-				return "Please check the input values";
-			}
 			
 		   // binding values
-		   	preparedStmt.setString(1, userBean.getAccountNo());
-			preparedStmt.setString(2, userBean.getName());
-			preparedStmt.setString(3, userBean.getAddress());
-			preparedStmt.setString(4, userBean.getNIC());
-			preparedStmt.setString(5, userBean.getEmail()); 
-			preparedStmt.setString(6, userBean.getPhone());
-			preparedStmt.setInt(7, userBean.getUserId());
-
+			preparedStmt.setString(1, accountNo);
+			preparedStmt.setString(2, name);
+			preparedStmt.setString(3, address);
+			preparedStmt.setString(4, NIC);
+			preparedStmt.setString(5, email); 
+			preparedStmt.setString(6, phone);
+			preparedStmt.setString(7, password); 
+			preparedStmt.setString(8, user_role);
+			preparedStmt.setInt(9, Integer.parseInt(userId));
+			
 		    // execute the statement		   
-		    int st = preparedStmt.executeUpdate();
-			 
-			if (st>0) {
-				output = "User Details Updated Sucessfully";
-			}else {
-				output = "User not found corresponding to the specified User ID";
-			}
+		    preparedStmt.executeUpdate();
 
-		   con.close();
+		    con.close();
+		    
+		    String newUsers = readUserDetails(); 
+			output = "{\"status\":\"success\",\"data\":\""+newUsers+"\"}"; 
 		   
 		}
 	    catch (Exception e){
-		   output = "Error while updating the user";
-		   System.err.println(e.getMessage());
+	    	output = "{\"status\":\"error\", \"data\":\"Error while updating the user.\"}"; 
+			System.err.println(e.getMessage());
 		}
 
 	    return output;
 	}
-		
-	//Update Admin
-		public String updateAdmin(UserBean userBean){
-		    String output = "";
-
-		    try{
-				Connection con = DBConnection.connect();
-			   if (con == null){
-				   return "Error while connecting to the database for updating"; 
-			   }
-			   // create a prepared statement
-			   String query = "UPDATE user SET accountNo=?,name=?,address=?,NIC=?,email=?,phone=? WHERE userId=? and user_role='Admin'";
-			   PreparedStatement preparedStmt = con.prepareStatement(query);
-			   
-			   // binding values
-			   	preparedStmt.setString(1, userBean.getAccountNo());
-				preparedStmt.setString(2, userBean.getName());
-				preparedStmt.setString(3, userBean.getAddress());
-				preparedStmt.setString(4, userBean.getNIC());
-				preparedStmt.setString(5, userBean.getEmail()); 
-				preparedStmt.setString(6, userBean.getPhone());
-				preparedStmt.setInt(7, userBean.getUserId());
-
-			    // execute the statement		   
-			    int st = preparedStmt.executeUpdate();
-				 
-				if (st>0) {
-					output = "User Details Updated Sucessfully";
-				}else {
-					output = "User not found corresponding to the specified User ID";
-				}
-
-			   con.close();
-			   
-			}
-		    catch (Exception e){
-			   output = "Error while updating the user";
-			   System.err.println(e.getMessage());
-			}
-
-		    return output;
-		}
-		
+				
 	//Delete 
-	public String deleteUser(String userId){
-		
-		UserBean userBean = new UserBean();
+	public String deleteUser(String UserID){
 		
 		String output = "";
 
@@ -295,24 +184,20 @@ public class User {
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			 
 			// binding values
-			preparedStmt.setInt(1, userBean.getUserId());
+			preparedStmt.setInt(1, Integer.parseInt(UserID));
 			
 			// execute the statement
-			int st = preparedStmt.executeUpdate();
-			
-			if (st>0) {
-				output = "User Deleted Sucessfully";
-			}else {
-				output = "User not found corresponding to the specified User ID";
-			}
-			
+			preparedStmt.executeUpdate();
+
 			con.close();
+		    String newUsers = readUserDetails(); 
+			output = "{\"status\":\"success\",\"data\":\""+newUsers+"\"}"; 
 			 
 		}
 
 		 catch (Exception e){
-			 output = "Error while deleting the user";
-			 System.err.println(e.getMessage());
+		    	output = "{\"status\":\"error\", \"data\":\"Error while updating the user.\"}"; 
+				System.err.println(e.getMessage());
 		}
 		
 		 return output;
@@ -354,5 +239,6 @@ public class User {
 		}
 		return output;
 	}
+
 
 }

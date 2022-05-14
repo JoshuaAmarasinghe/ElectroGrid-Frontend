@@ -126,7 +126,7 @@
                 </div>
                 <div class="col-md-6 mb-4 d-flex align-items-center">
                   <div class="form-outline datepicker w-100">
-                    <input type="text" id="nic" name="nic" class="form-control form-control-lg"  placeholder="NIC" required/>
+                    <input type="text" id="NIC" name="NIC" class="form-control form-control-lg"  placeholder="NIC" required/>
                   </div>
                 </div>
               </div>
@@ -152,11 +152,7 @@
                 </div>
                 <div class="col-md-6 mb-4 pb-2">
                   <div class="form-outline">
-                    <select id="userrole" name="userRole" class="form-control form-control-lg" required >
-                    <option value="customer" disabled selected id="userrole" >Select user role</option>
-					  <option value="customer" id="userrole" >Customer</option>
-					  <option value=technician id="userrole" >Technician</option>
-					</select>
+					  <input type="text" id="user_role" name="user_role" class="form-control form-control-lg" placeholder="User Role" required/>
                   </div>
                 </div>
               </div>
@@ -166,7 +162,7 @@
               </div>
             </form>
           </div><br>
-            <p class="text-center"><a href="./login.jsp">Already have an account?</a></p>
+            <p class="text-center"><a href="./profile.jsp">Manage User Accounts</a></p>
         </div>
       </div>
     </div>
@@ -176,11 +172,5 @@
 <div id="alertError" class="alert alert-danger"></div>
 <br>
 <br>
-<div id="divUserGrid">
- 	<%
-		User user = new User();
- 		out.print(user.readUserDetails());
- 	%>
-</div>
 </body>
 </html>

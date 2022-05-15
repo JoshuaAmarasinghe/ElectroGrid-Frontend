@@ -6,6 +6,7 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<link rel="stylesheet" href="Views/bootstrap.min.css">
+	<link rel="stylesheet" href="Views/Styles.css">
 	<script src="Components/jquery.min.js"></script>
     <script src="Components/users.js"></script>
 	<title>User Profile</title>
@@ -99,7 +100,7 @@ if (session.getAttribute("Username") != null)
       <div class="col-12 col-lg-9 col-xl-7">
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5 text-center">
-            <h3 class="mb-5 ">User Account Managment</h3>
+            <h2 class="mb-5 ">User Account Managment</h2>
             <form id="formUser" name="formUser" method="POST" action="register.jsp">
               <div class="row">
                 <div class="col-md-6 mb-4">
@@ -152,13 +153,13 @@ if (session.getAttribute("Username") != null)
                 </div>
               </div>
               <div class="mt-4 pt-2">
-                <input class="btn btn-primary btn-lg" type="button" id="btnSave" name="btnSave" type="button" value="Register" />
+                <input class="form-submit-btn" type="button" id="btnSave" name="btnSave" type="button" value="Update" />
                 <input type="hidden" id="hidUserIDSave" name="hidUserIDSave" value="">
               </div>
             </form>
-          </div><br>
+          </div>
             <p class="text-center"><a href="./register.jsp">Register New Account</a></p>
-        </div>
+        </div><br>
       </div>
     </div>
   </div>
@@ -166,11 +167,12 @@ if (session.getAttribute("Username") != null)
 <div id="alertSuccess" class="alert alert-success" ></div>
 <div id="alertError" class="alert alert-danger"></div>
 <br>
-				<div id="divUserGrid">
-				 	<%
-						User user = new User(); 
-				 		out.print(user.readUserDetails()); 
-				 	%>
-			    </div>
+
+<div class="container blue-table " id="divUserGrid">
+ 	<%
+		User user = new User(); 
+ 		out.print(user.readUserDetails()); 
+ 	%>
+   </div>
 </body>
 </html>

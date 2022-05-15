@@ -1,1 +1,97 @@
-@charset "ISO-8859-1";
+a{
+  text-decoration: none;
+}
+a:hover { 
+  text-decoration:none; 
+}
+
+Link{
+  text-decoration: none;
+}
+Link:hover { 
+  text-decoration:none; 
+}
+
+.card-form {
+  margin-bottom: 20px;
+  border: none;
+}
+
+.form-submit-btn{background-image: linear-gradient(to right, #0092FA 0%, #12C4FA  51%, #0092FA  100%)}
+.form-submit-btn {
+    border: 0;
+    margin: 20px auto;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    border-radius: 100px;
+    display: block;
+}
+
+.form-submit-btn:hover {
+   background-position: right center; /* change the direction of the change here */
+   color: #fff;
+   text-decoration: none;
+}
+
+body{
+  background-color: #F6F7FB;
+  color: #474D58;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.container{
+  min-height: 53vh;
+}
+
+
+--signup
+
+.boxSignUp {
+    width: 80%;
+    padding: 40px;
+    background: rgb(255, 255, 255);
+    border-radius: 15px;
+    box-shadow:0px 24px 48px 0 rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+
+
+--table
+
+.blue-table table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 15px;
+  border: 10px
+}
+.blue-table tr:nth-child(even){background-color: #f2f2f2}
+
+.blue-table th {
+  text-align: left;
+  padding: 12px 12px 12px 12px;
+  background-color: #0376c4;
+  color: white;
+}
+
+.blue-table table,
+.blue-table td {
+  padding: 8px 8px 8px 20px;
+  border: 100px
+}
+
+.box-view-prescription {
+  border-radius: 15px;
+  box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+}

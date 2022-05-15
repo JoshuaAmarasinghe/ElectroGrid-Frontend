@@ -89,6 +89,7 @@ body{
 
 .box-view-prescription {
   border-radius: 15px;
+  overflow: hidden;
   box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
   -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);

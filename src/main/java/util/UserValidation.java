@@ -16,7 +16,7 @@ public class UserValidation {
 		 else if(!phone.matches("^(?:7|0|(?:\\+94))[0-9]{9,10}$")) {
 			 return false;
 		 }
-		 else if(!password.matches("(^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()�[{}]:;',?/*~$^+=<>]).{8,20}$)")) {
+		 else if(!password.matches("(^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$)")) {
 			 return false;
 		 }
 		 else if(!email.matches ("(^[A-Za-z0-9+_.-]+@(.+)$)")) {

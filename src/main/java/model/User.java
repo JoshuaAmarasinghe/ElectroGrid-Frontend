@@ -22,14 +22,19 @@ public class User {
 	public String insertUser(String accountNo, String name, String address, String NIC,
 			String email, String phone, String password, String user_role) {
 		
-		System.out.println(NIC);
 		String output = "";
 
 		try {
 			Connection con = DBConnection.connect();
+			UserValidation validations = new UserValidation();
 			
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
+			}
+			
+			//Validating data
+			if(validations.registrationValidation(accountNo,  name,  address,  NIC,	email,  phone, password) == false){
+				return "Please check the input values";
 			}
 
 			// create a prepared statement
@@ -72,7 +77,8 @@ public class User {
 				return "Error while connecting to the database for reading.";
 			}
 			// Prepare the html table to be displayed
-			output ="<div class='blue-table, box-view-prescription'>"
+			output = "<div class='blue-table'>"
+					+ "<div class='blue-table, box-view-prescription'>"
 					+ "<table> <thead><tr><th>Account Number</th>"
 					+ "<th>Name</th><th>Address</th><th>NIC</th>"
 					+ "<th>Email</th>"
@@ -137,10 +143,17 @@ public class User {
 
 	    try{
 			Connection con = DBConnection.connect();
+			UserValidation validations = new UserValidation();
 			
 		   if (con == null){
 			   return "Error while connecting to the database for updating"; 
 		   }
+		   
+			//Validating data
+			if(validations.userUpdateValidation(accountNo, name, address, NIC, email, phone) == false){
+				return "Please check the input values";
+			}
+			
 		   // create a prepared statement
 		   String query = "UPDATE user SET accountNo=?,name=?,address=?,NIC=?,email=?,phone=?, password=?, user_role=? WHERE userId=?";
 		   PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -180,6 +193,7 @@ public class User {
 
 		try {
 			Connection con = DBConnection.connect();
+			
 			if (con == null){
 				 return "Error while connecting to the database for deleting."; 
 			}

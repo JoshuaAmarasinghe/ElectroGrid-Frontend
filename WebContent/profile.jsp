@@ -168,7 +168,7 @@ if (session.getAttribute("Username") != null)
 <div id="alertError" class="alert alert-danger"></div>
 <br>
 
-<div class="container blue-table " id="divUserGrid">
+<div class="container" id="divUserGrid">
  	<%
 		User user = new User(); 
  		out.print(user.readUserDetails()); 

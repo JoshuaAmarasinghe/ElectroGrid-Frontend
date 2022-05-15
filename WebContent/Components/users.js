@@ -162,7 +162,7 @@ function validateUserForm(){
 	
 	
 	var email = $("#email").val().trim();
-    var filter = /^[A-Za-z0-9+_.-]+@(.+)$/i;
+    var filter = /^[A-Za-z0-9+_.-]+@(.+)$/;
 	 if(filter.test(email) === false)
     {
         return "You Have Entered An Invalid E-mail Address";
@@ -170,6 +170,19 @@ function validateUserForm(){
         
     var phone = $("#phone").val().trim();
     var phoneFilter = /^(?:7|0|(?:\\+94))[0-9]{9,10}$/;
+   	if (phoneFilter.test(phone) === false) {
+        return "You Have Entered An Invalid Contact Number";
+    }
+    
+    var email = $("#NIC").val().trim();
+    var filter = /^([0-9]{9}[x|X|v|V]|[0-9]{12})$/;
+	 if(filter.test(email) === false)
+    {
+        return "You Have Entered An Invalid E-mail Address";
+    }
+        
+    var phone = $("#password").val().trim();
+    var phoneFilter = /^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$/;
    	if (phoneFilter.test(phone) === false) {
         return "You Have Entered An Invalid Contact Number";
     }

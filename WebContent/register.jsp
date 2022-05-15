@@ -6,32 +6,10 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<link rel="stylesheet" href="Views/bootstrap.min.css">
+	<link rel="stylesheet" href="Views/Styles.css">	
 	<script src="Components/jquery.min.js"></script>
     <script src="Components/users.js"></script>
 	<title>User Registration</title>
- <style>
-	.login-form {
-		width: 340px;
-    	margin: 50px auto;
-	}
-    .login-form form {
-    	margin-bottom: 15px;
-        background: #f7f7f7;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 30px;
-    }
-    .login-form h2 {
-        margin: 0 0 15px;
-    }
-    .form-control, .btn {
-        min-height: 38px;
-        border-radius: 2px;
-    }
-    .btn {        
-        font-size: 15px;
-        font-weight: bold;
-    }
-</style>
 </head>
 <body>
 <!-- Navbar -->
@@ -104,8 +82,9 @@
       <div class="col-12 col-lg-9 col-xl-7">
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5 text-center">
-            <h3 class="mb-5 ">Registration Form</h3>
-            <form id="formUser" name="formUser" method="POST" action="register.jsp">
+                <h2>Sign Up</h2>
+            <br>
+            <form class="boxSignUp" id="formUser" name="formUser" method="POST" action="register.jsp">
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
@@ -157,13 +136,13 @@
                 </div>
               </div>
               <div class="mt-4 pt-2">
-                <input class="btn btn-primary btn-lg" type="button" id="btnSave" name="btnSave" type="button" value="Register" />
+                <input class="form-submit-btn" type="button" id="btnSave" name="btnSave" type="button" value="Register" />
                 <input type="hidden" id="hidUserIDSave" name="hidUserIDSave" value="">
               </div>
             </form>
-          </div><br>
+          </div>
             <p class="text-center"><a href="./profile.jsp">Manage User Accounts</a></p>
-        </div>
+        </div><br>
       </div>
     </div>
   </div>

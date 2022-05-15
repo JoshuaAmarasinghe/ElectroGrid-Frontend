@@ -72,11 +72,14 @@ public class User {
 				return "Error while connecting to the database for reading.";
 			}
 			// Prepare the html table to be displayed
-			output = "<table border='1'><tr><th>Account Number</th>"
-					+"<th>Name</th><th>Address</th><th>NIC</th>"
+			output ="<div class='blue-table, box-view-prescription'>"
+					+ "<table> <thead><tr><th>Account Number</th>"
+					+ "<th>Name</th><th>Address</th><th>NIC</th>"
 					+ "<th>Email</th>"
 					+ "<th>Phone</th>"
-					+ "<th>User Role</th>";
+					+ "<th>User Role</th>"
+					+ "<th>Update</th>"
+					+ "<th>Remove</th> </tr></thead>";
 			String query = "select * from user";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -93,7 +96,7 @@ public class User {
 				String user_role = rs.getString("user_role");
 
 				// Add a row into the html table
-				output += "<tr><td>" + accountNo + "</td>";
+				output += " <tbody><tr><td>" + accountNo + "</td>";
 				output += "<td>" + name + "</td>";
 				output += "<td>" + address + "</td>";
 				output += "<td>" + NIC + "</td>";
@@ -106,12 +109,14 @@ public class User {
 				output += "class='btnUpdate btn btn-warning' data-userid='" + userID + "'></td>";
 				output += "<td><input name='btnRemove' type='button' value='Remove' ";
 				output += "class='btnRemove btn btn-danger' data-userid='" + userID + "'></td>";
-				output += "</tr>"; 		  
+				output += "</tr></tbody>"; 		  
 			}
 
 			con.close();
 			// Complete the html table
 			output += "</table>";
+			output += "</div>";
+			output += "</div>";
 		}
 
 		catch (Exception e){
